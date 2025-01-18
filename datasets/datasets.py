@@ -37,7 +37,8 @@ def load_csv(filepath, delimiter=',', class_col='', dataset_name='', print_summa
         
     # Separate data and class
     df_class = df[class_col]
-    df.drop(class_col, 1, inplace=True)
+    df.drop(class_col, axis=1, inplace=True)
+    #df.drop(class_col, 1, inplace=True)
     
     return df, df_class
     
@@ -56,7 +57,7 @@ def load_tennis(print_summary=False):
     df.dataframeName = 'Play Tennis'
     
     # Remove day column (not a feature)
-    df.drop('day', 1, inplace=True)
+    df.drop('day', axis=1, inplace=True)
     
     # Dataset summary
     if print_summary:
@@ -68,7 +69,7 @@ def load_tennis(print_summary=False):
     
     # Separate data and class
     df_class = df['play']
-    df.drop('play', 1, inplace=True)
+    df.drop('play', axis=1, inplace=True)
     
     return df, df_class
 
@@ -107,7 +108,8 @@ def load_lenses(print_summary=False):
                      'recommendation': {1: 'hard', 2: 'soft', 3: 'none'}}
     
     for k in replace_dicts.keys():
-        df[k].replace(replace_dicts[k], inplace=True)
+        # df[k].replace(replace_dicts[k], inplace=True)
+        df[k] = df[k].replace(replace_dicts[k])
     
     # Dataset summary
     if print_summary:
@@ -119,7 +121,8 @@ def load_lenses(print_summary=False):
         
     # Separate data and class
     df_class = df['recommendation']
-    df.drop('recommendation', 1, inplace=True)
+    #df.drop('recommendation', 1, inplace=True)
+    df.drop('recommendation', axis=1, inplace=True)
     
     return df, df_class
 
@@ -144,7 +147,7 @@ def load_mammographic_mass(print_summary=False):
     # Load DATA dataset as pandas table
     header = ['bi-rads', 'age', 'shape', 'margin', 'density', 'severity']
     df = pd.read_table(os.path.join(DATASETS_PATH, 'mammographic_masses.data'), index_col=False, delimiter=',', names=header)
-    df.drop('bi-rads', 1, inplace=True)     # remove non-predictive column
+    df.drop('bi-rads', axis=1, inplace=True)     # remove non-predictive column
     df.dataframeName = 'Mammographic Mass'
 
     # Remove examples with missing values
@@ -159,7 +162,8 @@ def load_mammographic_mass(print_summary=False):
                      'severity': {0: 'benign', 1: 'malignant'}}
     
     for k in replace_dicts.keys():
-        df[k].replace(replace_dicts[k], inplace=True)
+        #df[k].replace(replace_dicts[k], inplace=True)
+        df[k] = df[k].replace(replace_dicts[k])
 
     df['age'] = df['age'].astype(np.int16)       # convert str to int
     
@@ -175,7 +179,7 @@ def load_mammographic_mass(print_summary=False):
         
     # Separate data and class
     df_class = df[class_col]
-    df.drop(class_col, 1, inplace=True)
+    df.drop(class_col, axis=1, inplace=True)
     
     return df, df_class
 
@@ -233,7 +237,7 @@ def load_contraceptive(print_summary=False):
         
     # Separate data and class
     df_class = df[class_col]
-    df.drop(class_col, 1, inplace=True)
+    df.drop(class_col, axis=1, inplace=True)
     
     return df, df_class
 
@@ -278,7 +282,7 @@ def load_adult(print_summary=False):
         
     # Separate data and class
     df_class = df[class_col]
-    df.drop(class_col, 1, inplace=True)
+    df.drop(class_col, axis=1, inplace=True)
     
     return df, df_class
 
@@ -293,6 +297,6 @@ def load_rice():
     
     # Separate data and class
     df_class = df[class_col]
-    df.drop(class_col, 1, inplace=True)
+    df.drop(class_col, axis=1, inplace=True)
     
     return df, df_class
